@@ -239,7 +239,7 @@ body {
 
 .main .passwords .main-path {
     display: block;
-    height: 60vh;
+    height: calc(70vh + 10px);
     overflow-y: auto;
 }
 

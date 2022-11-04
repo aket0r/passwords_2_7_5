@@ -1,7 +1,7 @@
 
 class Content {
     constructor() {
-        console.log("Content class is ok");
+        console.log("Content loading...");
         this.load(false);
     }
 
@@ -79,6 +79,7 @@ class Content {
 
     load(login = false) {
         if(!login) return;
+        console.log("Content created!");
         let directionName = 'passwords_data';
         let dir = os.userInfo().homedir.replaceAll('\\', '/');
         let m_dir = `${dir}/Documents/${directionName}`
