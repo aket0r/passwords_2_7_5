@@ -102,24 +102,29 @@ loginAccBtn.addEventListener('click', function() {
             }
         }, 1000);
     }
-    
-    if(player.user.login != login_v.value && player.user.password != pass_v.value) {
+    if(!(login_v.value == player.user.login)) {
         player.counter.wrong_login_count++;
         player.counter.wrong_pass_count++;
         player.counter.fail_access++;
         logs.use(null, `Неверный логин или пароль. IP: ${IP}`, 'error');
         user.update();
         wrongCounter2++;
-        return
+        console.log("Wrong login!");
+        return;
     }
-    let win = document.querySelector(".pincode");
-    win.classList.add("hidden-animation");
-    logs.use(null, `Успешная авторизация. IP: ${IP}. Способ: login_&_password`, 'success');
-    sendMessage(`Успешная авторизация.\nIP: ${IP}.\nДата: ${new Date().toISOString()}\nСпособ: login_&_password`);
-    notification.use("System", `Вход в аккаунт\nIP: ${IP}\n\nДата: ${new Date().toLocaleString()}`);
-    player.counter.login_times++;
-    user.update();
-    content.load(true);
+    
+    if(pass_v.value == player.user.password) {
+        let win = document.querySelector(".pincode");
+        win.classList.add("hidden-animation");
+        logs.use(null, `Успешная авторизация. IP: ${IP}. Способ: login_&_password`, 'success');
+        sendMessage(`Успешная авторизация.\nIP: ${IP}.\nДата: ${new Date().toISOString()}\nСпособ: login_&_password`);
+        notification.use("System", `Вход в аккаунт\nIP: ${IP}\n\nДата: ${new Date().toLocaleString()}`);
+        player.counter.login_times++;
+        user.update();
+        content.load(true);
+    } else {
+        console.log("Wrong password!");
+    }
 })
 
 userPincodeInput.addEventListener("input", function(){
@@ -145,7 +150,9 @@ for(let k = 0; k < nextBtns.length; k++) {
                 windows[k].classList.add("hidden");
                 windows[inc].classList.remove("hidden");
                 windows[inc].classList.remove("hidden-animation");
-            } catch {}
+            } catch (e) {
+                logs.errors(e);
+            }
         }, 250);
         if((k + 1) >= nextBtns.length) {
             let bar = document.querySelector(".auth-reg-bar");
@@ -262,6 +269,7 @@ function runCode(text) {
             logs.use(null,"Выполнено.", 'success', true, null, text);
         } catch(e) {
             logs.use(null,`${e}`, 'error', true, null, text);
+            logs.errors(e);
         }
     }, Math.floor(Math.random() * 250));
     
@@ -429,7 +437,9 @@ function unlockData() {
             passTxt[i].innerText = passwords[counter].password;
             counter++;
         }
-    } catch {}
+    } catch (e) {
+        logs.errors(e);
+    }
 }
 
 time.h = (time.h < 10) ? '0' + time.h : time.h;
@@ -570,7 +580,7 @@ searchInput.addEventListener("input", function() {
                 items[i].classList.add("hidden");
             }
         } catch(e){
-            console.log(e);
+            logs.errors(e);
         }
     }
     if(v == '') {

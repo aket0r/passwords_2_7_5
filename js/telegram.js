@@ -13,6 +13,7 @@ async function sendMessage(message = null) {
             x.classList.remove("active")
             x.innerText = 'Обновите токен'
         });
+        logs.errors(e);
         return e;
     });
 }
@@ -27,6 +28,7 @@ bot.onText(/\/start/, (msg) => {
             x.classList.remove("active")
             x.innerText = 'Обновите токен'
         });
+        logs.errors(e);
         return e;
     });
 });

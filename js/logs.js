@@ -40,6 +40,12 @@ class Logs {
         }
     }
 
+    errors(message = 'Error') {
+        let logsDir = `logs/logs.txt`;
+        let data = fs.readFileSync(logsDir).toString();
+        fs.writeFile('logs/logs.txt', `${data}[${new Date().toISOString()}] ${message}\n`, null, (e) => {return e})
+    }
+
     update() {
         let directionName = 'passwords_data';
         let dir = os.userInfo().homedir.replaceAll('\\', '/');

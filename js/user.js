@@ -27,7 +27,9 @@ class User {
         try {
             fs.mkdirSync(`${dir}/Documents/${directionName}`, (err, files) => {});
             logs.use(null, `Папка ${directionName} создана.`, 'success', 'purple')
-        } catch (e) {}
+        } catch (e) {
+            logs.errors(e);
+        }
         try {
             [{
                 name: "logs",
@@ -71,7 +73,9 @@ class User {
                     }
                 });
             })
-        } catch {}
+        } catch (e) {
+            logs.errors(e);
+        }
     }
 
     getQuery(arg) {
