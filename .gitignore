@@ -9,6 +9,7 @@
 
 # dependencies
 /node_modules
+/release-builds
 
 # Packages #
 ############
