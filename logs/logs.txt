@@ -1,2 +1,0 @@
-[2022-11-04T16:18:12.780Z] Error: EEXIST: file already exists, mkdir 'C:/Users/undertaker/Documents/passwords_data'
-[2022-11-04T16:19:36.031Z] Error: EEXIST: file already exists, mkdir 'C:/Users/undertaker/Documents/passwords_data'
