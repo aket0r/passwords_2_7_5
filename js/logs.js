@@ -41,9 +41,18 @@ class Logs {
     }
 
     errors(message = 'Error') {
-        let logsDir = `logs/logs.txt`;
-        let data = fs.readFileSync(logsDir).toString();
-        fs.writeFile('logs/logs.txt', `${data}[${new Date().toISOString()}] ${message}\n`, null, (e) => {return e})
+        try {
+            let logsDir = `logs/logs.txt`;
+            let data = fs.readFileSync(logsDir).toString();
+            fs.writeFile('logs/logs.txt', `${data}[${new Date().toISOString()}] ${message}\n`, null, (e) => {return e})
+        } catch (e) {
+            fs.mkdirSync(`logs`, (err, files) => {});
+            fs.writeFile(`logs/logs.txt`, '', (err) => {
+                // console.log(`Файл "${file.message}" добавлен`);
+                logs.use(null, `Файл "logs.txt" добавлен.`, 'success', false, 'skyblue')
+                if(err) throw err;
+            });
+        }
     }
 
     update() {

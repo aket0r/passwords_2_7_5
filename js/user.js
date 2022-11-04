@@ -26,7 +26,7 @@ class User {
 
         try {
             fs.mkdirSync(`${dir}/Documents/${directionName}`, (err, files) => {});
-            logs.use(null, `Папка ${directionName} создана.`, 'success', 'purple')
+            logs.use(null, `Папка '${directionName}' создана.`, 'success', 'purple')
         } catch (e) {
             logs.errors(e);
         }
