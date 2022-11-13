@@ -34,10 +34,10 @@ class Content {
                 <a href="${obj.source}" target="_blank">${simpleSource}</a>
             </span>
         </div>
-        <div class="login-text" data-login="${obj.login}" onclick="showLogin(event)">
+        <div class="login-text" data-login="${obj.login}" ondblclick="showLogin(event)">
             <span class="login-content-text" data-login="${obj.login}">${hideLog}</span>
         </div>
-        <div class="password-text" data-password="${obj.password}" onclick="showPasswrd(event)">
+        <div class="password-text" data-password="${obj.password}" ondblclick="showPasswrd(event)">
             <span class="password-content-text" data-password="${obj.password}">${hidePass}</span>
         </div>
         <div class="created-at">

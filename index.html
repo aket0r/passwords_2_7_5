@@ -10,6 +10,10 @@
 </head>
 <body>
     <section id="bars">
+        <div class="hidden" id="internet-status">
+            <h1>Нет интернет подключения</h1>
+        </div>
+
         <div class="confirm-menu hidden-animation">
             <div class="container">
                 <h1 id="confirm-title">Подтвердите действие</h1>
@@ -34,7 +38,16 @@
                 </script>
                 <div class="title">
                     <h1>Консоль <strong id="confidentially"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Confidentially </strong></h1>
+                    <h1 id="keyboard-logs">keyboard</h1>
+                    <h1 id="mouse-logs">Mouse</h1>
+                    <h1 id="events-logs">EVENTS</h1>
                 </div>
+                <div id="keyboard-logs-contaier">
+                    <div id="keyboard-item">
+                        [22/22/22, 22:22] key "K"
+                    </div>
+                </div>
+
                 <div class="history"></div>
                 <div class="write">
                     <textarea name="" id="" cols="30" rows="10" placeholder="Write somethings..."></textarea>

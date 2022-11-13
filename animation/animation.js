@@ -1,6 +1,6 @@
 const version = '1.7.5';
 const { desktopCapturer } = require("electron");
-const { writeSync } = require("original-fs");
+const { writeSync, stat } = require("original-fs");
 
 const closeCreatebarBtn = document.querySelector("#close-created-bar-btn");
 const createBar = document.querySelector("#create-new-pass-bar");
@@ -283,9 +283,21 @@ codeSubmit.addEventListener("click", function() {
     runCode(codeArea.value);
 })
 
+function noConnection() {
+    let status = document.querySelector("#internet-status");
+    let buttons = document.querySelectorAll("button");
+    let exitBtn = document.querySelector("#exit-btn");
+    status.classList.remove("hidden");
+    buttons.forEach(btn => {
+        btn.disabled = true;
+    });
+    exitBtn.disabled = false;
+}
+
 let passList = document.querySelector("#passwords-length");
 let loadToken = this.document.querySelector("#user-telegram-token");
 window.addEventListener("load", function() {
+    if(!this.navigator.onLine) return noConnection();
     let title = this.document.querySelector("title");
     title.innerText = `Passwords v${version}`;
     if(player.user.pincode != '') {
@@ -604,3 +616,4 @@ function showPasswrd(event) {
     let target = event.target;
     target.innerText = (target.innerText == target.dataset.password) ? `${target.dataset.password.slice(0,2)}********` : target.dataset.password;
 }
+

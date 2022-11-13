@@ -852,7 +852,7 @@ body {
 .console {
     transition: 0.25s;
     position: fixed;
-    z-index: 1000;
+    z-index: 1000123123;
     left: 0;
     top: 0;
     width: 100%;
@@ -884,7 +884,20 @@ body {
 .console #container .title h1 {
     padding: 15px;
     color: royalblue;
+    display: inline-block;
 }
+.console #container .title h1:nth-child(2),
+.console #container .title h1:nth-child(3),
+.console #container .title h1:nth-child(4) {
+    cursor: pointer;
+    color: #4bb34b;
+}
+.console #container .title h1:nth-child(2):hover,
+.console #container .title h1:nth-child(3):hover,
+.console #container .title h1:nth-child(4):hover {
+    text-decoration: underline;
+} 
+
 .console #container .title h1,
 .console #container .title h1 strong {
     font-weight: 100;
@@ -1141,4 +1154,21 @@ body {
 .timer p {
     font-size: 11px;
     color: crimson;
+}
+
+#internet-status {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2.5px 0;
+    background-color: #e30000;
+    color: black;
+    z-index: 1999;
+    text-align: center;
+    box-shadow: 0 2px 4px orangered;
+}
+#internet-status h1 {
+    font-weight: 100;
+    user-select: none;
 }
