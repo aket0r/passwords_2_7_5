@@ -1,4 +1,4 @@
-const { createApp } = Vuelogs.errors(e);
+const { createApp } = Vue
 let directionName = 'passwords_data';
 let dir = os.userInfo().homedir.replaceAll('\\', '/');
 let m_dir = `${dir}/Documents/${directionName}`
