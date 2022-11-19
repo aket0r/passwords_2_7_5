@@ -1,3 +1,6 @@
-# Run "build-win.bat" for building exe file
-
-**Go in "release-builds" -> "Passwords-win32-ia32" and run "Passwords.exe" it is your app**
+# Start
+**Run** ``build-win.bat`` or another (OS)
+<br>
+Open console in ``release-builds -> Passwords-win32-ia32`` and write ``npm i node-telegram-bot-api``
+<br>
+**Go in "release-builds" -> "Passwords-win32-ia32" and run "Passwords.exe"**
