@@ -29,20 +29,6 @@
                 <div class="close">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </div>
-                <div class="history"></div>
-                <div class="write">
-                    <textarea name="" id="" cols="30" rows="10" placeholder="Write somethings..."></textarea>
-                    <div>
-                        <button id="send-command">Выполнить</button>
-                    </div>
-                </div>
-                <script>
-                    let consoleCloseBtn = document.querySelector(".console #container .close");
-                    let consoleWin = document.querySelector(".console")
-                    consoleCloseBtn.addEventListener("click", function() {
-                        consoleWin.classList.add("hidden-animation");
-                    })
-                </script>
                 <div class="title">
                     <h1>Консоль <strong id="confidentially"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Confidentially </strong></h1>
                 </div>
@@ -489,6 +475,13 @@
     <script src="js/user.js"></script>
     <script src="js/telegram.js"></script>
     <script src="js/content.js"></script>
+    <script>
+        let consoleCloseBtn = document.querySelector(".console #container .close");
+        let consoleWin = document.querySelector(".console")
+        consoleCloseBtn.addEventListener("click", function() {
+            consoleWin.classList.add("hidden-animation");
+        })
+    </script>
     <script>
         require('./render.js');
     </script>
