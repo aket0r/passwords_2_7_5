@@ -3,7 +3,7 @@
 <br>
 <br>
 # Node install
-## Enter each command in turn into the console, opening it in the application folder
+Enter each command in turn into the console, opening it in the application folder
 ```
 npm i fs
 
