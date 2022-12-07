@@ -1,6 +1,16 @@
 # Start
 **Run** ``build-win.bat`` or another (OS)
 <br>
-Open console in ``release-builds -> Passwords-win32-ia32`` and write ``npm i node-telegram-bot-api``
 <br>
-**Go in "release-builds" -> "Passwords-win32-ia32" and run "Passwords.exe"**
+# Node install
+
+`` npm i fs ``
+<br>
+`` npm i os ``
+<br>
+`` npm i node-telegram-bot-api ``
+<br>
+<br>
+
+
+**Go in ``release-builds" -> "Passwords-win32-ia32`` and run "Passwords.exe"**
