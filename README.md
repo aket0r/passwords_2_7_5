@@ -10,7 +10,6 @@ npm i node-telegram-bot-api
 
 # Step 2
 Run ``build-win.bat`` or another (OS)
-<br>
-<br>
 
+# Step 3
 Go in **release-builds**
