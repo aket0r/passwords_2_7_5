@@ -3,6 +3,7 @@
 <br>
 <br>
 # Node install
+__write it in console in main directory__
 ```
 npm i fs
 
