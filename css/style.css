@@ -26,7 +26,7 @@
     font-family: sans-serif;
 }
 body {
-    background-color: #eee;
+    background-color: #ddd;
     overflow: hidden;
 }
 .hidden, #hidden {
@@ -76,7 +76,7 @@ body {
     border: none;
     padding: 15px;
     background-color: #fff;
-    border-top: 1px solid #eee;
+    border-top: 1px solid #ddd;
     display: block;
     width: 100%;
     cursor: pointer;
@@ -153,16 +153,16 @@ body {
 }
 
 .left .left-bar button:active {
-    background-color: #eee;
+    background-color: #ddd;
 }
 
 .left .left-bar .top button:first-child {
     border-top: none;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ddd;
 }
 .left .left-bar button:last-child {
     border-bottom: none;
-    border-top: 1px solid #eee;
+    border-top: 1px solid #ddd;
 }
 
 .left .left-bar .bottom {
