@@ -176,7 +176,6 @@ for(let k = 0; k < nextBtns.length; k++) {
 }
 
 let btn = document.querySelector("#theme-btn");
-let themeWin = document.querySelector(".theme-bar");
 const openProfileWinBtn = document.querySelector("#m-open-profile-btn");
 const settingsShortBtn = document.querySelector("#settings-btn");
 const homeBtn = document.querySelector("#m-open-home-btn");
@@ -185,8 +184,25 @@ const profileWin = document.querySelector(".profile-page");
 const mainPage = document.querySelector(".passwords-page")
 const editBar = document.querySelector(".edit-pass-bar")
 btn.addEventListener("click", function() {
-    themeWin.classList.toggle("hidden-animation");
-})
+    switchTheme();
+});
+
+
+function switchTheme() {
+    const storage = localStorage.getItem("current-theme");
+    if(!storage) localStorage.setItem("current-theme", '1');
+    let cssFile = document.querySelectorAll("#mode-css");
+    if(storage == '1') {
+        localStorage.setItem("current-theme", '0');
+        if(!cssFile) return;
+        cssFile.forEach(el => el.remove());
+    } else {
+        localStorage.setItem("current-theme", '1');
+        
+        checkTheme();
+    }
+}
+
 window.addEventListener("keyup",  function(event) {
     let key = event.key;
     // console.log(`CTRL: ${event.ctrlKey} : KEY: ${key}`);
@@ -289,13 +305,15 @@ function runCode(text) {
     
 }
 
-
-
-const codeArea = document.querySelector(".write textarea");
-const codeSubmit = document.querySelector("#send-command");
-codeSubmit.addEventListener("click", function() {
-    runCode(codeArea.value);
+const consoleInput = document.querySelector("#console-command-val");
+consoleInput.addEventListener("keyup", function(e) {
+    let k = e.key;
+    if(k == 'Enter' && !e.shiftKey) {
+        runCode(this.value);
+        this.value = "";
+    }
 })
+
 
 function noConnection() {
     let status = document.querySelector("#internet-status");
@@ -614,7 +632,7 @@ deleteAccBtn.addEventListener("click", function() {
     let confirmMenu = document.querySelector(".confirm-menu");
     let confirmMenuTxt = document.querySelector(".confirm-menu #confirm-content");
     confirmMenu.classList.remove("hidden-animation");
-    confirmMenuTxt.innerText = 'Вы действительно хотите удалить аккаунт?';
+    confirmMenuTxt.innerText = 'Вы действительно хотите удалить аккаунт?\nДанные будут безвозвратно потеряны. Сделайте копию данные если не уверены в своём решении.';
 
     let confirmBtnAccept = document.querySelector("#confirm-accept");
     confirmBtnAccept.onclick = user.delete;
@@ -651,20 +669,4 @@ searchInput.addEventListener("input", function() {
             item.classList.remove("hidden");
         })
     }
-})
-
-function showLogin(event) {
-    event.stopPropagation();
-    event.preventDefault();
-    let target = event.target;
-    target.innerText = (target.innerText == target.dataset.login) ? `${target.dataset.login.slice(0,2)}********` : target.dataset.login;
-}
-
-
-function showPasswrd(event) {
-    event.stopPropagation();
-    event.preventDefault();
-    let target = event.target;
-    target.innerText = (target.innerText == target.dataset.password) ? `${target.dataset.password.slice(0,2)}********` : target.dataset.password;
-}
-
+});
