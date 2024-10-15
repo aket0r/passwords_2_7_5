@@ -1,0 +1,23 @@
+@media (max-width: 1920px)  {
+    .auth-reg-bar .steps .numbers, .numbers-join {
+        width: 100%;
+        max-width: 40%;
+    }
+
+    .main .passwords #passwords-path .title .password-item div, .main .passwords #passwords-path .main-path .password-item div {
+        padding: 10px;
+    }
+    .main .passwords #passwords-path .main-path .password-item div {
+        font-size: 16px;
+    }
+    .left .left-bar button i {
+        font-size: 25px;
+    }
+    .left {
+        margin-right: 60px;
+        width: calc(10% - 105px);
+    }
+    .left .left-bar button {
+        padding: 20px 5px;
+    }
+}
