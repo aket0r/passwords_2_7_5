@@ -5,11 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" id="mode-white-css" href="css/style.css">
     <link rel="stylesheet" href="css/media.css">
     <title>Passwords</title>
 </head>
 <body>
+    <script>
+        function checkTheme() {
+            // 1: Night
+            // 0: Day
+            const storage = localStorage.getItem("current-theme");
+            if(storage == null) {
+                localStorage.setItem("current-theme", 0);
+                return;
+            }
+            if(storage == '1') {
+                const cssLink = document.createElement("link");
+                cssLink.rel = "stylesheet";
+                cssLink.href = "css/dark.css";
+                cssLink.id = "mode-css";
+                document.querySelector("head").append(cssLink);
+            } else {
+                document.querySelectorAll("#mode-css").forEach(el => el.remove());
+                const cssLink = document.createElement("link");
+                cssLink.rel = "stylesheet";
+                cssLink.href = "css/style.css";
+                cssLink.id = "mode-css";
+                document.querySelector("head").append(cssLink);
+            }
+        }
+        checkTheme();
+    </script>
     <section id="bars">
         <div class="hidden" id="internet-status">
             <h1>Нет интернет подключения</h1>
@@ -35,10 +61,7 @@
                 </div>
                 <div class="history"></div>
                 <div class="write">
-                    <textarea name="" id="" cols="30" rows="10" placeholder="Write somethings..."></textarea>
-                    <div>
-                        <button id="send-command">Выполнить</button>
-                    </div>
+                    <textarea id="console-command-val" cols="30" rows="10" placeholder="Enter JavaScript code here. alert('Hello World!')"></textarea>
                 </div>
                 </div>
             </div>
@@ -244,31 +267,16 @@
                     <!-- HOME ICON -->
                     <i class="fa fa-home" aria-hidden="true"></i>
                 </button>
-                <button id="m-open-profile-btn" style="border-top: none; border-bottom: 1px solid #ddd;">
+                <button id="m-open-profile-btn" style="border-top: none; border-bottom: 1px solid var(--btn-background-color);">
                     <!-- PROFILE ICON -->
                     <i class="fa fa-user" aria-hidden="true"></i>
                 </button>
             </div>
             <div class="bottom" style="clear: both;">
-                <button id="theme-btn" class="hidden">
+                <button id="theme-btn" class="">
                     <!-- THEME ICON -->
-                    <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                    <i class="fa fa-moon-o" aria-hidden="true"></i>
                 </button>
-                <div class="drop theme-bar hidden-animation">
-                    <h2>Тема</h2>
-                    <label>
-                        <input checked type="radio" name="theme" id="theme-point" data-type="0">
-                        <strong>Белая</strong>
-                    </label>
-                    <label>
-                        <input type="radio" name="theme" id="theme-point" data-type="1">
-                        <strong>Тёмная</strong>
-                    </label>
-                    <label>
-                        <input type="radio" name="theme" id="theme-point" data-type="1">
-                        <strong>Темно-синяя</strong>
-                    </label>
-                </div>
                 <button id="settings-btn">
                     <!-- SETTINGS ICON -->
                     <i class="fa fa-cog" aria-hidden="true"></i>
