@@ -52,3 +52,10 @@ createApp({
         id: navigation.currentEntry.id
     }
 }}).mount('#userid')
+
+createApp({
+    data() {
+        return {
+        theme: (localStorage.getItem("current-theme") == "0") ? "Белая" : "Тёмная"
+    }
+}}).mount('#user-theme-choose')
