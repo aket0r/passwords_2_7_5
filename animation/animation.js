@@ -181,8 +181,9 @@ const settingsShortBtn = document.querySelector("#settings-btn");
 const homeBtn = document.querySelector("#m-open-home-btn");
 const settingsPage = document.querySelector(".settings-page");
 const profileWin = document.querySelector(".profile-page");
-const mainPage = document.querySelector(".passwords-page")
-const editBar = document.querySelector(".edit-pass-bar")
+const mainPage = document.querySelector(".passwords-page");
+const editBar = document.querySelector(".edit-pass-bar");
+const themeTitle = document.querySelector("#user-theme-choose");
 btn.addEventListener("click", function() {
     switchTheme();
 });
@@ -194,10 +195,12 @@ function switchTheme() {
     let cssFile = document.querySelectorAll("#mode-css");
     if(storage == '1') {
         localStorage.setItem("current-theme", '0');
+        themeTitle.innerText = "Белая";
         if(!cssFile) return;
         cssFile.forEach(el => el.remove());
     } else {
         localStorage.setItem("current-theme", '1');
+        themeTitle.innerText = "Тёмная";
         
         checkTheme();
     }
