@@ -184,6 +184,7 @@ const profileWin = document.querySelector(".profile-page");
 const mainPage = document.querySelector(".passwords-page");
 const editBar = document.querySelector(".edit-pass-bar");
 const themeTitle = document.querySelector("#user-theme-choose");
+let themeIcon = document.querySelector("#theme-icon");
 btn.addEventListener("click", function() {
     switchTheme();
 });
@@ -193,13 +194,16 @@ function switchTheme() {
     const storage = localStorage.getItem("current-theme");
     if(!storage) localStorage.setItem("current-theme", '1');
     let cssFile = document.querySelectorAll("#mode-css");
+    
     if(storage == '1') {
         localStorage.setItem("current-theme", '0');
         themeTitle.innerText = "Белая";
+        themeIcon.className = "fa fa-sun-o";
         if(!cssFile) return;
         cssFile.forEach(el => el.remove());
     } else {
         localStorage.setItem("current-theme", '1');
+        themeIcon.className = "fa fa-moon-o";
         themeTitle.innerText = "Тёмная";
         
         checkTheme();
