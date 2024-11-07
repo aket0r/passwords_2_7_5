@@ -34,7 +34,7 @@ body {
 .profile-page .profile-content ul li input {
     border: 1px solid #333 !important;
     background: #222 !important;
- 
+    color: #fff !important;
 }
 
 .profile-page .profile-content ul li {
