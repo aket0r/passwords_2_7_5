@@ -87,7 +87,7 @@ const settingsArray = JSON.parse(settings);
 const TelegramBot = require('node-telegram-bot-api');
 const token = array.notifications.telegram_token;
 const bot = new TelegramBot(token, {polling: true})
-const chat_id = "";
+const chat_id = userData.notifications.chat_id;
 async function sendMessage(message = null) {
     if(!message) return;
     await bot.sendMessage(chat_id, message);
@@ -95,19 +95,12 @@ async function sendMessage(message = null) {
 bot.on("polling_error", (msg) => console.log(msg));
 
 bot.on('message', function(req) {
-    /* 
-    // your username
-    if(req.from.username != "") {
-        bot.sendMessage(chat_id, `Кто-то попытался воспользоваться вашим ботом\nID пользователя: @${req.from.username}`);
-        return;
-    } */
-
     let usrTime = {
         h: (array.user.uptime[0] < 9) ? '0' + array.user.uptime[0] : array.user.uptime[0],
         m: (array.user.uptime[1] < 9) ? '0' + array.user.uptime[1] : array.user.uptime[1],
         s: (array.user.uptime[2] < 9) ? '0' + array.user.uptime[2] : array.user.uptime[2]
     }
-    
+    let array = userData;
     switch(req.text) {
         case '/passwords':
             bot.sendDocument(chat_id, `${os.homedir().replaceAll("\\", "/")}/Documents/passwords_data/passwords.json`);
