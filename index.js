@@ -70,8 +70,13 @@ app.on('window-all-closed', () => {});
 
 
 
-const user = fs.readFileSync(`${os.homedir().replaceAll("\\", "/")}/Documents/passwords_data/user.json`);
-const array = JSON.parse(user);
+let directionName = 'passwords_data';
+let dir = os.userInfo().homedir.replaceAll('\\', '/');
+let m_dir = `${dir}/Documents/${directionName}`
+
+let bufferData = fs.readFileSync(`${m_dir}/user.json`)
+let stData = bufferData.toString()
+let userData = JSON.parse(stData)
 
 const password = fs.readFileSync(`${os.homedir().replaceAll("\\", "/")}/Documents/passwords_data/passwords.json`)
 const passArray = JSON.parse(password);
