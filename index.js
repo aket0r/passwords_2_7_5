@@ -87,7 +87,7 @@ const settingsArray = JSON.parse(settings);
 const TelegramBot = require('node-telegram-bot-api');
 const token = array.notifications.telegram_token;
 const bot = new TelegramBot(token, {polling: true})
-const chat_id = userData.notifications.chat_id;
+const chat_id = array.notifications.chat_id;
 async function sendMessage(message = null) {
     if(!message) return;
     await bot.sendMessage(chat_id, message);
