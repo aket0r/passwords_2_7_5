@@ -2,6 +2,28 @@
 
 # 🛡️ Passwords 2.7.5
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Platform-Electron-blue" />
+  <img src="https://img.shields.io/badge/Node.js-18.x-green" />
+  <img alt="Static Badge" src="https://img.shields.io/badge/Status-80%25%20complete-green">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" />
+  <img alt="Static Badge" src="https://img.shields.io/badge/SCSS-29.7%25-blue">
+  <img alt="Static Badge" src="https://img.shields.io/badge/Languages-6-blue">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white" />
+  <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white" />
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
+  <img src="https://img.shields.io/badge/Electron-47848F?style=for-the-badge&logo=electron&logoColor=white" />
+  <img src="https://img.shields.io/badge/Less-1D365D?style=for-the-badge&logo=less&logoColor=white" />
+  <img src="https://img.shields.io/badge/bat-4D4D4D?style=for-the-badge&logo=windows&logoColor=white" />
+  <img src="https://img.shields.io/badge/CSS-264de4?style=for-the-badge&logo=css3&logoColor=white" />
+</p>
+
+
+
+
 **Passwords 2.7.5** — это простой кроссплатформенный менеджер паролей, разработанный на базе Electron.  
 Приложение позволяет безопасно хранить, искать и управлять паролями локально на вашем устройстве.
 
