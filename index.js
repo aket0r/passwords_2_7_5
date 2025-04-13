@@ -7,6 +7,7 @@ const os = require("os");
 let mainWindow = null;
 let loadingWindow = null;
 let appTray = null;
+let forceQuit = false;
 
 const config = {
     app: {
@@ -18,11 +19,13 @@ const config = {
 const trayMenuTemplate = [
     {
         label: "Выйти",
-        click: () => app.quit()
+        click: () => {
+            forceQuit = true;
+            app.quit();
+        }
     }
 ];
 
-// Защита от повторного запуска
 const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
     app.quit();
@@ -84,10 +87,11 @@ function createMainWindow() {
         mainWindow.show();
     });
 
-    // При закрытии просто скрываем окно
     mainWindow.on("close", (e) => {
-        e.preventDefault();
-        mainWindow.hide();
+        if (!forceQuit) {
+            e.preventDefault();
+            mainWindow.hide();
+        }
     });
 }
 
@@ -118,7 +122,6 @@ function createLoadingWindow() {
     });
 }
 
-// Слушаем событие от загрузочного окна
 ipcMain.on("loading-complete", () => {
     if (loadingWindow) {
         loadingWindow.close();
@@ -129,10 +132,10 @@ ipcMain.on("loading-complete", () => {
     createTray();
 });
 
-// Стартуем с загрузки
 app.whenReady().then(createLoadingWindow);
 
-// Не закрываем приложение, если все окна закрыты
-app.on("window-all-closed", () => {
-    // ничего не делаем — приложение живёт в трее
+app.on("window-all-closed", () => {});
+
+app.on("before-quit", () => {
+    forceQuit = true;
 });
