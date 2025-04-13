@@ -11,7 +11,7 @@ let appTray = null;
 const config = {
     app: {
         name: "Passwords Manager",
-        ver: "2.7.6"
+        ver: "3.0"
     }
 };
 
