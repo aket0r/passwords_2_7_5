@@ -22,14 +22,15 @@ const trayMenuTemplate = [
     }
 ];
 
-// 🔒 Одиночный экземпляр
+// Защита от повторного запуска
 const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
     app.quit();
 } else {
     app.on("second-instance", () => {
         if (mainWindow) {
-            mainWindow.show();
+            if (!mainWindow.isVisible()) mainWindow.show();
+            mainWindow.focus();
         }
     });
 }
@@ -42,10 +43,16 @@ function createTray() {
     appTray.setContextMenu(contextMenu);
 
     appTray.on("click", () => {
-        if (mainWindow?.isVisible()) {
+        if (!mainWindow) {
+            createMainWindow();
+            return;
+        }
+
+        if (mainWindow.isVisible()) {
             mainWindow.hide();
         } else {
-            mainWindow?.show();
+            mainWindow.show();
+            mainWindow.focus();
         }
     });
 }
@@ -77,11 +84,11 @@ function createMainWindow() {
         mainWindow.show();
     });
 
-    mainWindow.on("closed", () => {
-        mainWindow = null;
+    // При закрытии просто скрываем окно
+    mainWindow.on("close", (e) => {
+        e.preventDefault();
+        mainWindow.hide();
     });
-
-    // mainWindow.webContents.openDevTools();
 }
 
 function createLoadingWindow() {
@@ -111,17 +118,21 @@ function createLoadingWindow() {
     });
 }
 
-// 🛠 IPC от загрузочного окна
+// Слушаем событие от загрузочного окна
 ipcMain.on("loading-complete", () => {
     if (loadingWindow) {
         loadingWindow.close();
+        loadingWindow = null;
     }
+
     createMainWindow();
     createTray();
 });
 
+// Стартуем с загрузки
 app.whenReady().then(createLoadingWindow);
 
+// Не закрываем приложение, если все окна закрыты
 app.on("window-all-closed", () => {
-    // ничего не делаем, приложение остаётся висеть в трее
+    // ничего не делаем — приложение живёт в трее
 });
