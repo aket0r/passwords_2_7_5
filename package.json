@@ -1,0 +1,32 @@
+{
+  "name": "passwords",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . Passwords --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Passwords\"",
+    "package-linux": "electron-packager . Passwords --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds"
+  },
+  "author": "anton",
+  "license": "ISC",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "easyvk": "^2.8.2",
+    "electron": "^20.3.12",
+    "express": "^4.19.2",
+    "find-process": "^1.4.7",
+    "fs": "^0.0.1-security",
+    "node-telegram-bot-api": "^0.59.0",
+    "node-vkapi": "^3.0.7",
+    "os": "^0.1.2",
+    "request-ip": "^3.3.0",
+    "safe-regex-test": "^1.0.3",
+    "vk-call": "^2.2.0",
+    "vk-io": "^4.7.0"
+  },
+  "devDependencies": {
+    "electron-packager": "^16.0.0"
+  }
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Загрузка...</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #1e1e1e;
+      color: #00ff99;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #status {
+      margin-top: 10px;
+      font-size: 16px;
+      white-space: pre-wrap;
+    }
+
+    #close-btn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      color: #ff5555;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    #close-btn:hover {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="close-btn" title="Закрыть">✖</div>
+  <h2>Проверка файлов...</h2>
+  <div id="status">Инициализация...</div>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+    const fs = require('fs');
+    const os = require('os');
+    const path = require('path');
+  
+    const status = document.getElementById("status");
+    const closeBtn = document.getElementById("close-btn");
+  
+    const log = (msg) => {
+      status.textContent += `\n[${new Date().toLocaleTimeString()}] ${msg}`;
+    };
+  
+    closeBtn.addEventListener('click', () => {
+      window.close();
+    });
+  
+    async function checkAndCreateFiles() {
+      const user = os.userInfo().username;
+      const basePaths = [
+        `C:/Users/${user}/Documents/passwords_data`,
+        `C:/Users/${user}/OneDrive/Documents/passwords_data`
+      ];
+  
+      let basePath = basePaths.find(p => fs.existsSync(p));
+      let wasCreated = false;
+  
+      if (!basePath) {
+        basePath = basePaths[0];
+        log(`No directory "passwords_data"`);
+        log(`Creating directory "passwords_data"...`);
+        fs.mkdirSync(basePath, { recursive: true });
+        wasCreated = true;
+      }
+  
+      log(`Using: ${basePath}`);
+  
+      const files = [
+        { name: 'logs.json', content: [] },
+        { name: 'passwords.json', content: [] },
+        { name: 'user.json', content: [] },
+        { name: 'settings.json', content: {} } // <-- объект
+      ];
+  
+      for (const file of files) {
+        const fullPath = path.join(basePath, file.name);
+        if (!fs.existsSync(fullPath)) {
+          log(`No file ${file.name}...`);
+          log(`Creating file ${file.name}...`);
+          fs.writeFileSync(fullPath, JSON.stringify(file.content, null, 2), 'utf-8');
+          wasCreated = true;
+        } else {
+          log(`File ${file.name} exists.`);
+        }
+      }
+  
+      if (wasCreated) {
+        log(`Файлы созданы. Перезапуск приложения...`);
+        setTimeout(() => {
+          ipcRenderer.send('loading-complete');
+        }, 1000);
+      } else {
+        log(`Все файлы в порядке. Запуск приложения...`);
+        setTimeout(() => {
+          ipcRenderer.send('loading-complete');
+        }, 1000);
+      }
+    }
+  
+    window.onload = checkAndCreateFiles;
+  </script>
+  
+</body>
+</html>

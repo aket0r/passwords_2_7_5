@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" id="mode-white-css" href="css/style.css">
+    <link rel="stylesheet" href="css/media.css">
+    <title>Passwords</title>
+</head>
+<body>
+    <script>
+        function checkTheme() {
+            // 1: Night
+            // 0: Day
+            const storage = localStorage.getItem("current-theme");
+            if(storage == null) {
+                localStorage.setItem("current-theme", 0);
+                return;
+            }
+            if(storage == '1') {
+                const cssLink = document.createElement("link");
+                cssLink.rel = "stylesheet";
+                cssLink.href = "css/dark.css";
+                cssLink.id = "mode-css";
+                document.querySelector("head").append(cssLink);
+            } else {
+                document.querySelectorAll("#mode-css").forEach(el => el.remove());
+                const cssLink = document.createElement("link");
+                cssLink.rel = "stylesheet";
+                cssLink.href = "css/style.css";
+                cssLink.id = "mode-css";
+                document.querySelector("head").append(cssLink);
+            }
+        }
+        checkTheme();
+    </script>
+    <section id="bars">
+        <div class="hidden" id="internet-status">
+            <h1>Нет интернет подключения</h1>
+        </div>
+
+        <div class="confirm-menu hidden-animation">
+            <div class="container">
+                <h1 id="confirm-title">Подтвердите действие</h1>
+                <p id="confirm-content">
+                    -
+                </p>
+                <button id="confirm-accept" data-function="">Принять</button>
+                <button id="confirm-decline">Отменить</button>
+            </div>
+        </div>
+        <div class="console hidden-animation">
+            <div id="container">
+                <div class="close">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </div>
+                <div class="title">
+                    <h1>Консоль <strong id="confidentially"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Confidentially </strong></h1>
+                </div>
+                <div class="history"></div>
+                <div class="write">
+                    <textarea id="console-command-val" cols="30" rows="10" placeholder="Enter JavaScript code here. alert('Hello World!')"></textarea>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert hidden-animation">
+            <strong id="time">4</strong>
+            <h1 id="title-of-alert">-</h1>
+            <p id="content-of-alert">
+                -
+            </p>
+        </div>
+
+        <div class="confirm hidden-animation">
+            <h1 id="title-of-alert">-</h1>
+            <p id="content-of-alert">
+                -
+            </p>
+            <button id="confirm-req-yes">Да</button>
+            <button id="confirm-req-no">Отмена</button>
+        </div>
+
+        <div class="pincode hidden-animation">
+            <div class="main-content">
+                <h1>Введите пин-код</h1>
+                <div class="inputs">
+                    <input style="text-align: center;" placeholder="ПИН-КОД" type="text" id="user-pincode">
+                </div>
+                <div class="numbers-join">
+                    <div class="num">1</div>
+                    <div class="num">2</div>
+                    <div class="num">3</div>
+                    <div class="num">4</div>
+                    <div class="num">5</div>
+                    <div class="num">6</div>
+                    <div class="num">7</div>
+                    <div class="num">8</div>
+                    <div class="num">9</div>
+                    <div class="num">0</div>
+                    <div class="btn backspace" style="width: 10px;"><i class="fa fa-minus" aria-hidden="true"></i></div>
+                    <div class="btn reset-values" style="width: 10px;"><i class="fa fa-trash-o" aria-hidden="true"></i></div>
+                </div>
+                <script>
+                    const backspace = document.querySelector(".backspace");
+                    const pinInputVal = document.querySelector("#user-pincode");
+                    backspace.addEventListener("click", function() {
+                        pinInputVal.value = pinInputVal.value.slice(0, pinInputVal.value.length - 1);
+                    });
+
+                    const reset = document.querySelector(".reset-values");
+                    reset.addEventListener("click", function() {
+                        pinInputVal.value = '';
+                    })
+                </script>
+                <button id="join-in-account">Войти</button>
+            </div>
+            <div class="main-content main-content-login hidden-animation">
+                <h1>Авторизация</h1>
+                <input type="text" id="wr-login" placeholder="Логин" style="width: 60%; margin: 10px 0;">
+                <input type="password" id="wr-password" placeholder="Пароль" style="width: 60%; margin: 0;">
+                <button id="wr-join-in-account">Войти</button>
+                <div class="timer hidden-animation">
+                    <h2 id="time-in">60</h2>
+                    <p>
+                        Вы ввели слишком много неверных попыток.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="auth-reg-bar hidden-animation">
+            <div id="step-1" class="steps">
+                <h1 id="steps">Регистрация</h1>
+                <div class="inputs">
+                    <input placeholder="Логин" type="text" id="user-login-auth">
+                    <input placeholder="Пароль" type="text" id="user-password-auth">
+                </div>
+                <button id="next" data-step="1">Продожить</button>
+            </div>
+            <div id="step-2" class="steps hidden-animation hidden">
+                <h1 id="steps">Шаг второй</h1>
+                <div class="inputs">
+                    <input style="text-align: center;" placeholder="Придумайте пин-код" type="text" id="user-pincode-auth">
+                </div>
+                <div class="numbers">
+                    <div class="num">1</div>
+                    <div class="num">2</div>
+                    <div class="num">3</div>
+                    <div class="num">4</div>
+                    <div class="num">5</div>
+                    <div class="num">6</div>
+                    <div class="num">7</div>
+                    <div class="num">8</div>
+                    <div class="num">9</div>
+                    <div class="num">0</div>
+                    <div class="btn backspace-reg" style="width: 10px;"><i class="fa fa-minus" aria-hidden="true"></i></div>
+                    <div class="btn reset-values-reg" style="width: 10px;"><i class="fa fa-trash-o" aria-hidden="true"></i></div>
+                </div>
+                <script>
+                    const backspaceReg = document.querySelector(".backspace-reg");
+                    const pinInputValReg = document.querySelector("#user-pincode-auth");
+                    backspaceReg.addEventListener("click", function() {
+                        pinInputValReg.value = pinInputValReg.value.slice(0, pinInputValReg.value.length - 1);
+                    });
+
+                    const resetReg = document.querySelector(".reset-values-reg");
+                    resetReg.addEventListener("click", function() {
+                        pinInputValReg.value = '';
+                    })
+                </script>
+                <button id="next" data-step="1">Пропустить</button>
+            </div>
+            <div id="step-3" class="steps hidden-animation hidden">
+                <h1 id="steps">Шаг третий</h1>
+                <div class="inputs">
+                    <input placeholder="Токен" type="text" id="user-phone-auth">
+                </div>
+                <p>
+                    Инструкция по настрйке уведомлений от
+                    вашего телеграм бота вы можете получить
+                    <a style="color: royalblue; text-decoration: none;" href="https://github.com/yagop/node-telegram-bot-api/tree/master/doc" target="_blank" title="https://github.com/yagop/node-telegram-bot-api/tree/master/doc">здесь</a>.
+                    <br>
+                    <br>
+                    Настроить уведомления можно в настройках
+                </p>
+                <button id="next" data-step="1" class="register-confirm">Войти</button>
+            </div>
+        </div>
+
+
+        <div class="edit-pass-bar hidden-animation">
+            <div id="main-edit-page">
+                <div class="top-bar">
+                    <div>
+                        <button style="font-size: 24px; color: royalblue;"></button>
+                    </div>
+                    <div class="center-title">
+                        <h1>Изменение пароля</h1>
+                    </div>
+                    <div class="right">
+                        <button id="save-this-password" data-pass-id="">Сохранить</button>
+                        <button id="cancel-edit" data-pass-id="">Отмена</button>
+                    </div>
+                </div>
+                <div class="last-inputs">
+                    <ul>
+                        <li>
+                            <span>Источник</span>
+                            <input type="text" id="edit-source" placeholder="Ссылка">
+                        </li>
+                        <li>
+                            <span>Логин</span>
+                            <input type="text" id="edit-login" placeholder="Логин">
+                        </li>
+                        <li>
+                            <span>Пароль</span>
+                            <input type="text" id="edit-password" placeholder="Пароль">
+                        </li>
+                    </ul>
+                </div>
+    
+                <div class="log-data">
+                    <p>
+                        Дата создания
+                        <span class="createdAt">-</span>
+                    </p>
+                </div>
+            </div>
+            <script>
+                const cancelEditBtn = document.querySelector("#cancel-edit");
+                const editWin = document.querySelector(".edit-pass-bar");
+                cancelEditBtn.addEventListener("click", function() {
+                    editWin.classList.add("hidden-animation");
+                })
+            </script>
+        </div>
+        <div class="hidden-animation" id="create-new-pass-bar">
+            <div class="main-content">
+                <strong id="close-created-bar-btn">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </strong>
+                <h1>Новый пароль</h1>
+                <div class="content">
+                    <input type="text" placeholder="Источник" id="new-source-value">
+                    <input type="text" placeholder="Логин" id="new-login-value">
+                    <input type="text" placeholder="Пароль" id="new-password-value">
+                    <div class="select-type" style="position: relative;">
+                        <select name="" id="type">
+                            <option value="app" disabled>Тип</option>
+                            <option value="app">Приложение</option>
+                            <option value="web" selected>Веб-сайт</option>
+                        </select>
+                        <span id="mark"></span>
+                    </div>
+                </div>
+                <button id="confirm-new-passowrd">Подтвердить</button>
+            </div>
+        </div>
+    </section>
+    <section class="left">
+        <div class="left-bar">
+            <div class="top">
+                <button id="m-open-home-btn">
+                    <!-- HOME ICON -->
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                </button>
+                <button id="m-open-profile-btn" style="border-top: none; border-bottom: 1px solid var(--btn-background-color);">
+                    <!-- PROFILE ICON -->
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="bottom" style="clear: both;">
+                <button id="theme-btn" class="">
+                    <!-- THEME ICON -->
+                    <i id="theme-icon" class="fa fa-moon-o" aria-hidden="true"></i>
+                </button>
+                <button id="settings-btn">
+                    <!-- SETTINGS ICON -->
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <button id="lock-user-btn" onclick="location.reload()">
+                    <!-- LOCK ICON -->
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                </button>
+                <button id="exit-btn" onclick="window.close()">
+                    <!-- EXIT ICON -->
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+    <section class="main settings-page hidden">
+        <h2>Настройки</h2>
+        <hr>
+        <div class="notification-sound">
+            <audio id="sound-notification" src="assets/sounds/sound-type-4.mp3" autoplay="false" stop></audio>
+        </div>
+        <section>
+            <div class="req-message-container">
+                <strong id="req-message-txt">Сохранено</strong>
+            </div>
+            <div class="settings-buttons">
+                <div class="item">
+                    <label>
+                        <input data-key="autoHideData" checked name="config" type="checkbox">
+                        <p>
+                            Автоматически скрывать логин/пароль
+                        </p>
+                        <span class="checkbox"></span>
+                    </label>
+                </div>
+                <div class="item">
+                    <label>
+                        <input data-key="notificationOAuth" disabled checked type="checkbox">
+                        <p>
+                            Уведомления при авторизации <sup class="warning-text">Обновите токен/номер</sup>
+                        </p>
+                        <span class="checkbox"></span>
+                    </label>
+                </div>
+                <div class="item">
+                    <label>
+                        <input data-key="notificationAbotAll" disabled checked type="checkbox">
+                        <p>
+                            Уведомления при любых изменениях <sup class="warning-text">Обновите токен/номер</sup>
+                        </p>
+                        <span class="checkbox"></span>
+                    </label>
+                </div>
+            </div>
+        </section>
+    </section>
+    <section class="main profile-page hidden">
+        <div class="profile-content">
+            <h2>Аккаунт</h2>
+            <hr>
+            <ul>
+                <li>
+                    Файлы<strong class="context" id="files-path">{{path}}</strong>
+                </li>
+                
+                <li>
+                    Тема<strong class="context" id="user-theme-choose">{{theme}}</strong>
+                </li>
+                <li style="color: limegreen;">
+                    Online<strong class="context" id="user-uptime-status"></strong>
+                </li>
+                <li>
+                    Дата регистрации<strong class="context" id="user-were-created">N/A</strong>
+                </li>
+                <li>
+                    Введите <a href="https://cobrasystems.nl/telegram-user-id/" title="https://cobrasystems.nl/telegram-user-id/" target="_blank" title="https://vkhost.github.io/">userid</a> (без @) <strong title="Текущий userid" class="context small p5" id="user-telegram-userid">N/A</strong>
+                    <input type="text" placeholder="@name" id="oauth-userid">
+                    <span class="load-oauth-save" id="userid-status">Сохранено</span>
+                </li>
+                <li>
+                    Введите <a href="https://www.wikihow.com/Know-Chat-ID-on-Telegram-on-Android" title="https://www.wikihow.com/Know-Chat-ID-on-Telegram-on-Android" target="_blank" title="https://vkhost.github.io/">chat_id</a> <strong class="context small" title="Текущий chatid" id="user-telegram-chatid">N/A</strong>
+                    <input type="text" placeholder="chat_id" id="oauth-chatid">
+                    <span class="load-oauth-save" id="chatid-status">Сохранено</span>
+                </li>
+                <li>
+                    Получить <a href="https://github.com/yagop/node-telegram-bot-api/tree/master/doc" title="https://github.com/yagop/node-telegram-bot-api/tree/master/doc" target="_blank" title="https://vkhost.github.io/">Telegram</a> токен <strong class="context" id="user-telegram-token">N/A</strong>
+                    <input type="text" placeholder="oauth token" id="oauth-vk-token">
+                    <span class="load-oauth-save" id="oauth-vk-token-save">Сохранено</span>
+                </li>
+                <li>
+                    Пароль
+                    <input type="password" placeholder="Старый пароль" id="old-user-pass">
+                    <input type="password" placeholder="Новый пароль" id="new-user-pass">
+                    <span class="load-pass-save">Сохранено</span>
+                </li>
+                <li>
+                    Пин-код
+                    <input type="text" placeholder="Старый пин-код" id="old-user-pin">
+                    <input type="text" placeholder="Новый пин-код" id="new-user-pin">
+                    <span class="load-pin-save">Сохранено</span>
+                </li>
+                <li>
+                    <button id="delete-account-btn">Удалить аккаунт</button>
+                </li>
+            </ul>
+            <h2>Система</h2>
+            <hr>
+            <ul>
+                <li>
+                    IPv4 <strong class="context" id="ip">{{ip}}</strong>
+                </li>
+                <li>
+                    ID <strong class="context" id="userid">{{id}}</strong>
+                </li>
+                <li>
+                    PC/Laptop <strong class="context" id="pc-name">{{pc}}</strong>
+                </li>
+                <li>
+                    OS <strong class="context" id="win-os-name">{{os}}</strong>
+                </li>
+                <li>
+                    uptime <strong class="context" id="win-uptime">N/A</strong>
+                </li>
+                <li>
+                    homedir <strong class="context" id="win-homedir">{{homedir}}</strong>
+                </li>
+            </ul>
+            <h2>Горячие клавиши</h2>
+            <hr>
+            <ul id="keyboard">
+                <li>
+                    Скрыть меню <strong class="context">ESCAPE</strong>
+                </li>
+                <li>
+                    Главная <strong class="context">Ctrl + H</strong>
+                </li>
+                <li>
+                    Настройки <strong class="context">Ctrl + S</strong>
+                </li>
+                <li>
+                    Профиль <strong class="context">Ctrl + P</strong>
+                </li>
+                <li>
+                    Консоль <strong class="context">F7</strong>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="main passwords-page">
+        <div class="buttons">
+            <button id="create-new-password">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                Добавить
+            </button>
+            <input type="text" id="search-input" placeholder="Поиск">
+        </div>
+        <div class="content-in">
+            <h1>
+                Всего паролей <strong id="passwords-length"></strong>
+            </h1>
+            <h1 class="hidden">
+                System notification <strong id="system-notification-name">Telegram</strong>
+            </h1>
+            <h1 class="hidden">
+                System DB <strong id="system-db-name">JSON</strong>
+            </h1>
+        </div>
+        <div class="passwords">
+            <div id="passwords-path">
+                <div class="title">
+                    <div class="password-item">
+                        <div class="type-and-icon">
+                            <span class="pass-type-icon app-ico">Тип</span>
+                        </div>
+                        <div class="">
+                            <span class="pass-type-text">Источник</span>
+                        </div>
+                        <div class="">
+                            <span class="login-content-text">Логин</span>
+                        </div>
+                        <div class="">
+                            <span class="password-content-text">Пароль</span>
+                        </div>
+                        <div class="">
+                            <span class="created-at-text-title">Дата</span>
+                        </div>
+                        <div class="unlock-pass" style="color: green">
+                            <span><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="lock-pass" style="color: crimson;">
+                            <span><i class="fa fa-lock" aria-hidden="true"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="path main-path"></div>
+            </div>
+        </div>
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        let ipUrl = "https://api.ipify.org?format=json";
+        let IP = null;
+        async function getIP() {
+            const response = await fetch(ipUrl);
+            const res = await response.json();
+            IP = res.ip;
+        }
+        getIP();
+    </script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="js/array.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/logs.js"></script>
+    <script src="animation/animation.js"></script>
+    <script src="js/user.js"></script>
+    <script src="js/telegram.js"></script>
+    <script src="js/content.js"></script>
+    <script>
+        let consoleCloseBtn = document.querySelector(".console #container .close");
+        let consoleWin = document.querySelector(".console")
+        consoleCloseBtn.addEventListener("click", function() {
+            consoleWin.classList.add("hidden-animation");
+        })
+    </script>
+    <script>
+        require('./render.js');
+    </script>
+</body>
+</html>
