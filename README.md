@@ -1,4 +1,4 @@
-# 🛡️ Passwords Manager 3.0
+# 🛡️ Passwords Manager 3.0.5 Beta
 
 <p align="center">
   <img src="https://img.shields.io/badge/Platform-Electron-blue" />
@@ -100,7 +100,7 @@ npm i electron --save
 
 > Или используйте файл `init-modules.cmd` для быстрой установки
 
-📥 Готовый релиз доступен [в разделе Release](https://github.com/aket0r/passwords_2_7_5/releases/tag/Download)
+📥 Готовый релиз доступен [в разделе Release](https://github.com/aket0r/passwords_manager/releases)
 
 ---
 
