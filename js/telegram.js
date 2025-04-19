@@ -21,11 +21,6 @@ async function sendMessage(message = null) {
 
 
 bot.on('message', function(req) {
-    if(req.from.username != userid && userid != "") {
-        bot.sendMessage(chat_id, `Кто-то попытался воспользоваться вашим ботом\nID пользователя: @${req.from.username}`);
-        return;
-    }
-
     let usrTime = {
         h: (player.user.uptime[0] < 9) ? '0' + player.user.uptime[0] : player.user.uptime[0],
         m: (player.user.uptime[1] < 9) ? '0' + player.user.uptime[1] : player.user.uptime[1],

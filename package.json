@@ -12,6 +12,7 @@
   "author": "anton",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^5.3.5",
     "child_process": "^1.0.2",
     "easyvk": "^2.8.2",
     "electron": "^20.3.12",
@@ -23,6 +24,7 @@
     "os": "^0.1.2",
     "request-ip": "^3.3.0",
     "safe-regex-test": "^1.0.3",
+    "swiper": "^11.2.6",
     "vk-call": "^2.2.0",
     "vk-io": "^4.7.0"
   },

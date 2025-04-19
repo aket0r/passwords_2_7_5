@@ -11,6 +11,7 @@
 /node_modules
 /release-builds
 /logs
+/backup
 
 # Packages #
 ############
@@ -30,6 +31,7 @@
 *.log
 *.sql
 *.sqlite
+logs.txt
 
 # OS generated files #
 ######################

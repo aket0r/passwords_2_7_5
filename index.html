@@ -12,8 +12,6 @@
 <body>
     <script>
         function checkTheme() {
-            // 1: Night
-            // 0: Day
             const storage = localStorage.getItem("current-theme");
             if(storage == null) {
                 localStorage.setItem("current-theme", 0);
@@ -134,14 +132,19 @@
         <div class="auth-reg-bar hidden-animation">
             <div id="step-1" class="steps">
                 <h1 id="steps">Регистрация</h1>
-                <div class="inputs">
-                    <input placeholder="Логин" type="text" id="user-login-auth">
-                    <input placeholder="Пароль" type="text" id="user-password-auth">
-                </div>
-                <button id="next" data-step="1">Продожить</button>
+                <form class="inputs" id="step-1-login">
+                    <input required placeholder="Логин" data-type="login" type="text" id="user-login-auth">
+                    <input required placeholder="Пароль" data-type="password" type="password" id="user-password-auth">
+                </form>
+                <p>
+                    Ваш логин и пароль может быть использовать для вход в аккаунт в случае если
+                    вы забудете ваш пин-код. Также если вы подключите уведомления с <strong class="important-title">Telegram</strong>
+                    вы будете получать уведомления о попытках входа через пин-код или логин/пароль
+                </p>
+                <button id="next" data-step="1" form="step-1-login" disabled>Продожить</button>
             </div>
             <div id="step-2" class="steps hidden-animation hidden">
-                <h1 id="steps">Шаг второй</h1>
+                <h1 id="steps">Установка пин-кода</h1>
                 <div class="inputs">
                     <input style="text-align: center;" placeholder="Придумайте пин-код" type="text" id="user-pincode-auth">
                 </div>
@@ -171,22 +174,82 @@
                         pinInputValReg.value = '';
                     })
                 </script>
-                <button id="next" data-step="1">Пропустить</button>
+                <button id="next" data-step="2">Пропустить</button>
             </div>
             <div id="step-3" class="steps hidden-animation hidden">
-                <h1 id="steps">Шаг третий</h1>
-                <div class="inputs">
-                    <input placeholder="Токен" type="text" id="user-phone-auth">
+                <h1 id="steps">Завершение регистрации</h1>
+                <div class="container">
+                    <div class="tutorial">
+                        <p>
+                            Откройте ваш <strong class="">Telegram</strong> и следуйте инструкциям ниже
+                        </p>
+                        <div class="assets slideshow-container">
+                            <div class="mySlides fade">
+                                <div class="numbertext">1 / 6</div>
+                                <img src="assets/imgs/BotFather-step-1-2.jpeg.png" alt="@BotFather" width="350px">
+                                <div class="text">Создайте нового бота в <strong>@BotFather</strong></div>
+                            </div>
+                            
+                            <div class="mySlides fade">
+                                <div class="numbertext">2 / 6</div>
+                                    <img src="assets/imgs/BotFather-step-1-3.jpeg.png" alt="@BotFather" width="350px">
+                                <div class="text">Отправьте сообщение боту</div>
+                                </div>
+
+                                <div class="mySlides fade">
+                                <div class="numbertext">3 / 6</div>
+                                    <img src="assets/imgs/BotFather-step-1-4.jpeg.png" alt="@BotFather" width="350px">
+                                <div class="text">Перешлите сообщение боту <strong>@RawDataBot</strong></div>
+                                </div>
+
+                                <div class="mySlides fade">
+                                <div class="numbertext">4 / 6</div>
+                                    <img src="assets/imgs/BotFather-step-1-5.jpeg.png" alt="@BotFather" width="350px">
+                                <div class="text">Скопируйте <strong>Chat ID</strong></div>
+                                </div>
+
+                                <div class="mySlides fade">
+                                <div class="numbertext">5 / 6</div>
+                                    <img src="assets/imgs/BotFather-step-1-6.jpeg.png" alt="@BotFather" width="350px">
+                                <div class="text">Скопируйте <strong>User ID</strong></div>
+                                </div>
+
+                                <div class="mySlides fade">
+                                <div class="numbertext">6 / 6</div>
+                                    <img src="assets/imgs/BotFather-step-1-7.jpeg.png" alt="@BotFather" width="350px">
+                                <div class="text">Заполните поля и завершите регистрацию</div>
+                                </div>
+
+                            <!-- Next and previous buttons -->
+                            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                        </div>
+                        <div style="text-align:center">
+                            <span class="dot" onclick="currentSlide(1)"></span>
+                            <span class="dot" onclick="currentSlide(2)"></span>
+                            <span class="dot" onclick="currentSlide(3)"></span>
+                            <span class="dot" onclick="currentSlide(4)"></span>
+                            <span class="dot" onclick="currentSlide(5)"></span>
+                            <span class="dot" onclick="currentSlide(6)"></span>
+                        </div>
+                    </div>
+                    <div class="data">
+                        <div class="inputs">
+                            <input placeholder="Токен" type="text" id="user-token-auth">
+                            <input placeholder="Chat ID" type="text" id="user-chat_id-auth">
+                            <input placeholder="User ID" type="text" id="user-user_id-auth">
+                        </div>
+                        <p>
+                            Инструкция по настрйке уведомлений от
+                            вашего телеграм бота вы можете получить
+                            <a style="color: royalblue; text-decoration: none;" href="https://github.com/yagop/node-telegram-bot-api/tree/master/doc" target="_blank" title="https://github.com/yagop/node-telegram-bot-api/tree/master/doc">здесь</a>.
+                            <br>
+                            <br>
+                            Настроить уведомления можно в настройках
+                        </p>
+                    </div>
                 </div>
-                <p>
-                    Инструкция по настрйке уведомлений от
-                    вашего телеграм бота вы можете получить
-                    <a style="color: royalblue; text-decoration: none;" href="https://github.com/yagop/node-telegram-bot-api/tree/master/doc" target="_blank" title="https://github.com/yagop/node-telegram-bot-api/tree/master/doc">здесь</a>.
-                    <br>
-                    <br>
-                    Настроить уведомления можно в настройках
-                </p>
-                <button id="next" data-step="1" class="register-confirm">Войти</button>
+                <button id="next" data-step="3" class="register-confirm">Завершить регистрацию</button>
             </div>
         </div>
 
@@ -487,6 +550,7 @@
         getIP();
     </script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
     <script src="js/array.js"></script>
     <script src="js/vue.js"></script>
     <script src="js/notifications.js"></script>

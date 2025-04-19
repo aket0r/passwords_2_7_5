@@ -121,9 +121,9 @@ class User {
                     }
                 },
                 notifications: {
-                    telegram_token: this.getQuery('#user-phone-auth')[0].value || '',
-                    chat_id: "",
-                    userid: ""
+                    telegram_token: this.getQuery('#user-token-auth')[0].value || '',
+                    chat_id: this.getQuery('#user-chat_id-auth')[0].value || '',
+                    userid: this.getQuery('#user-user_id-auth')[0].value || ''
                 },
                 counter: {
                     fail_access: 0,

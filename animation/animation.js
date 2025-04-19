@@ -1,19 +1,28 @@
 const version = '2.7.5';
-const { desktopCapturer } = require("electron");
-const { writeSync, stat } = require("original-fs");
+const forms = document.querySelectorAll("form");
+
+forms.forEach(form => {
+    if (!form) return;
+
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+    })
+})
+
+
 
 const closeCreatebarBtn = document.querySelector("#close-created-bar-btn");
 const createBar = document.querySelector("#create-new-pass-bar");
 
 closeCreatebarBtn.addEventListener("click", function() {
     createBar.classList.add("hidden-animation");
-})
+});
 
 
 const addNewPasswordBtn = document.querySelector("#create-new-password");
 addNewPasswordBtn.addEventListener("click", function() {
     createBar.classList.remove("hidden-animation");
-})
+});
 
 const numbersBtns = document.querySelectorAll(".numbers div");
 const numbersJoinBtns = document.querySelectorAll(".numbers-join div");
@@ -41,6 +50,15 @@ for(let i = 0; i < numbersBtns.length; i++) {
         }
     })
 }
+
+userPincodeInput.addEventListener("keyup", function(event) {
+    if (this.value.trim() !== "") {
+        if (event.key === "Enter") {
+            const nextBtn = document.querySelectorAll("#next")[1];
+            nextBtn.click();
+        }
+    }
+})
 
 // AUTH
 let wrongCounter = 0;
@@ -154,7 +172,6 @@ userPincodeInput.addEventListener("input", function(){
 
 for(let k = 0; k < nextBtns.length; k++) {
     nextBtns[k].addEventListener("click", function() {
-        let id = k;
         let inc = k + 1;
         inc = (inc > nextBtns.length) ? k : k + 1;
         let windows = document.querySelectorAll(".steps");
@@ -341,12 +358,17 @@ window.addEventListener("load", function() {
     if(!this.navigator.onLine) return noConnection();
     let title = this.document.querySelector("title");
     title.innerText = `Passwords v${version}`;
-    if(player.user.pincode != '') {
-        let pinAuthBar = this.document.querySelector('.pincode');
-        pinAuthBar.classList.remove('hidden-animation');
-    } else {
-        content.load(true);
+    try {
+        if(player.user.pincode != '') {
+            let pinAuthBar = this.document.querySelector('.pincode');
+            pinAuthBar.classList.remove('hidden-animation');
+        } else {
+            content.load(true);
+        }
+    } catch (e) {
+        logs.use(null, e, "error", false);
     }
+
     logs.use(null, `Приложение 'Passwords v${version}' успешно запущено.`, "success", false);
     logList.forEach(object => {
         logs.use(object.createdAt, object.message, object.status || 'error', false);
@@ -357,21 +379,25 @@ window.addEventListener("load", function() {
     passList.innerText = passwords.length;
     
 
-    if(player.notifications.telegram_token != '') {
-        let length = player.notifications.telegram_token.length;
-        let str = '';
-        for(let i = 0; i < length - 5; i++) {
-            str += '*';
+    try {
+        if(player.notifications.telegram_token != '') {
+            let length = player.notifications.telegram_token.length;
+            let str = '';
+            for(let i = 0; i < length - 5; i++) {
+                str += '*';
+            }
+            loadToken.innerText = `${player.notifications.telegram_token.slice(0, 5)}${str}`;
         }
-        loadToken.innerText = `${player.notifications.telegram_token.slice(0, 5)}${str}`;
-    }
-
-    if(player.notifications.chat_id != '') {
-        loadChatId.innerText = player.notifications.chat_id;
-    }
-
-    if(player.notifications.userid != '') {
-        loadUserId.innerText = player.notifications.userid;
+    
+        if(player.notifications.chat_id != '') {
+            loadChatId.innerText = player.notifications.chat_id;
+        }
+    
+        if(player.notifications.userid != '') {
+            loadUserId.innerText = player.notifications.userid;
+        }
+    } catch (e) {
+        logs.use(null, e, "error", false);
     }
 })
 
@@ -419,7 +445,7 @@ function deletePassowrd(event) {
 let editObj = null;
 function editCurrentPassword(event, id) {
     let win = document.querySelector(".edit-pass-bar");
-    let souurce = document.querySelector("#edit-source");
+    let source = document.querySelector("#edit-source");
     let login = document.querySelector("#edit-login");
     let password = document.querySelector("#edit-password");
     let createdAt = document.querySelector(".log-data .createdAt");
@@ -441,7 +467,7 @@ function editCurrentPassword(event, id) {
         }
         counter++;
     }
-    souurce.value = editObj.source;
+    source.value = editObj.source;
     createdAt.innerText = editObj.createdAt;
     icon.innerHTML = (editObj.type == 'web') ? '<i class="fa fa-external-link"></i>' : '<i class="fa fa-th-large"></i>'
 }
@@ -677,3 +703,69 @@ searchInput.addEventListener("input", function() {
         })
     }
 });
+
+
+
+const userLoginReg = document.querySelector("#user-login-auth");
+const userPassReg = document.querySelector("#user-password-auth");
+
+userLoginReg.addEventListener("input", checkRequires.bind(userLoginReg));
+userPassReg.addEventListener("input", checkRequires.bind(userPassReg));
+
+
+const req_object = {
+    login: false,
+    password: false
+}
+
+function checkRequires() {
+    const nextBtn = document.querySelectorAll("#next")[0];
+    const type = this.dataset.type;
+    if (this.value.trim() != "") {
+        req_object[type] = true;
+    } else {
+        req_object[type] = false;
+    }
+
+    console.log(type)
+
+    if (req_object.login === true && req_object.password === true) {
+        nextBtn.disabled = false;
+    } else {
+        nextBtn.disabled = true;
+    }
+}
+
+
+
+// Slider
+
+
+let slideIndex = 1;
+showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+}
