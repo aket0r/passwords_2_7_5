@@ -61,16 +61,16 @@ userPincodeInput.addEventListener("keyup", function(event) {
 })
 
 // AUTH
-let wrongCounter = 0;
+let wrongCounter = localStorage.getItem("isLocked") !== null ? 3 : 0;
 const joinAccBtn = document.querySelector("#join-in-account");
 const joinAccInput = document.querySelector("#user-pincode");
 const loginAccBtn = document.querySelector("#wr-join-in-account");
 
-function authRequest() {
+function authRequest(useMessage = true) {
     let win = document.querySelector(".pincode");
     let value = userPincodeAuthInput.value;
     if(wrongCounter == 3) {
-        sendMessage(`Ошибка авторизации.\nIP: ${IP}\nДата: ${new Date().toISOString()}`);
+        useMessage === true ? sendMessage(`Ошибка авторизации.\nIP: ${IP}\nДата: ${new Date().toISOString()}`) : '';
         notification.use('#Auth_notification_code', 'Попробуйте другие способы.');
         let pinWin = document.querySelector(".main-content");
         let loginWin = document.querySelector(".main-content-login");
@@ -108,19 +108,20 @@ joinAccInput.addEventListener("keyup", function(e) {
     }
 });
 
-let wrongCounter2 = 0;
+let wrongCounter2 = localStorage.getItem("isLocked") !== null ? 3 : 0;
 
-loginAccBtn.addEventListener('click', function() {
-    let login_v = document.querySelector("#wr-login");
-    let pass_v = document.querySelector("#wr-password");
-    let timer = document.querySelector(".timer");
-    let h2Title = document.querySelector(".timer h2");
+let login_v = document.querySelector("#wr-login");
+let pass_v = document.querySelector("#wr-password");
+let timer = document.querySelector(".timer");
+let h2Title = document.querySelector(".timer h2");
 
+function doesItWrong() {
     if(wrongCounter2 >= 3) {
         login_v.disabled = true;
         pass_v.disabled = true;
         loginAccBtn.disabled = true;
         timer.classList.remove("hidden-animation");
+        localStorage.setItem("isLocked", true);
         accesInit = setInterval(() => {
             accesInitTime--;
             h2Title.innerText = accesInitTime;
@@ -131,9 +132,21 @@ loginAccBtn.addEventListener('click', function() {
                 login_v.disabled = false;
                 pass_v.disabled = false;
                 loginAccBtn.disabled = false;
+                localStorage.removeItem("isLocked");
+                localStorage.removeItem("isLockedCounter");
+
+                setTimeout(() => {
+                    location.reload();
+                }, 150);
             }
+            localStorage.setItem("isLockedCounter", accesInitTime);
         }, 1000);
     }
+}
+
+loginAccBtn.addEventListener('click', function() {
+    doesItWrong();
+
     if(!(login_v.value == player.user.login)) {
         player.counter.wrong_login_count++;
         player.counter.wrong_pass_count++;
@@ -356,6 +369,17 @@ let loadChatId = this.document.querySelector("#user-telegram-chatid");
 let loadUserId = this.document.querySelector("#user-telegram-userid");
 window.addEventListener("load", function() {
     if(!this.navigator.onLine) return noConnection();
+
+    const isLocked = this.localStorage.getItem("isLocked");
+    
+
+    if (isLocked !== null) {
+        doesItWrong();
+        authRequest(false);
+    } else {
+        this.localStorage.removeItem("isLockedCounter");
+    }
+
     let title = this.document.querySelector("title");
     title.innerText = `Passwords v${version}`;
     try {
