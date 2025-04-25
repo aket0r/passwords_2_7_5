@@ -38,7 +38,7 @@ bot.on('message', function(req) {
                     parse_mode: 'Markdown'
                 });
             } else {
-                bot.sendMessage(chat_id, `Пользователь *${player.user.login}*\n\nТекущий IP: *${player.user.ip}*\nРгеистрация: *${player.user.createdAt}*\nПаролей: *${passwords.length}*\nВремя проведённое в приложении: *${usrTime.h}:${usrTime.m}:${usrTime.s}*\n\nСчётчик:\nОшибок входа: ${player.counter.fail_access}\nАвторизаций: ${player.counter.login_times}`, {
+                bot.sendMessage(chat_id, `Пользователь *${player.user.login}*\n\nТекущий IP: *${player.user.ip}*\nРгеистрация: *${player.user.createdAt}*\nПаролей: *${passwords.length}*\nВремя проведённое в приложении: *${usrTime.h}:${usrTime.m}:${usrTime.s}*\n\nОшибок входа: ${player.counter.fail_access}\nАвторизаций: ${player.counter.login_times}`, {
                     parse_mode: 'Markdown'
                 });
             }
