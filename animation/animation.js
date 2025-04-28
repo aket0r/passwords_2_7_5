@@ -367,6 +367,7 @@ let passList = document.querySelector("#passwords-length");
 let loadToken = this.document.querySelector("#user-telegram-token");
 let loadChatId = this.document.querySelector("#user-telegram-chatid");
 let loadUserId = this.document.querySelector("#user-telegram-userid");
+
 window.addEventListener("load", function() {
     if(!this.navigator.onLine) return noConnection();
 
@@ -495,6 +496,7 @@ function editCurrentPassword(event, id) {
     createdAt.innerText = editObj.createdAt;
     icon.innerHTML = (editObj.type == 'web') ? '<i class="fa fa-external-link"></i>' : '<i class="fa fa-th-large"></i>'
 }
+
 let confirmUpdate = document.querySelector("#save-this-password");
 confirmUpdate.addEventListener("click", function() {
     if(!editObj) return;
@@ -570,7 +572,6 @@ function recordUptime() {
         time.h = (time.h < 10) ? '0' + time.h : time.h;
     }
     setTimeout(recordUptime, 1000);
-    // console.warn(`Uptime: ${time.h}:${time.m}:${time.s}`);
     player.user.uptime[0] = Number(time.h);
     player.user.uptime[1] = Number(time.m);
     player.user.uptime[2] = Number(time.s);
@@ -760,20 +761,13 @@ function checkRequires() {
     }
 }
 
-
-
-// Slider
-
-
 let slideIndex = 1;
 showSlides(slideIndex);
 
-// Next/previous controls
 function plusSlides(n) {
   showSlides(slideIndex += n);
 }
 
-// Thumbnail image controls
 function currentSlide(n) {
   showSlides(slideIndex = n);
 }
